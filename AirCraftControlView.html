@@ -1,0 +1,71 @@
+<!--
+Author: Koushik Borra
+Assessment: AircraftControlSystem
+Company: Bublup
+-->
+<!DOCTYPE html>
+<html lang="en" ng-app="ACControlSystem">
+
+<head>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/nvd3/1.7.0/nv.d3.min.css" rel="stylesheet" type="text/css">
+    <link href="Aircraftbeautifier.css" rel="stylesheet" type="text/css">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-route.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="AirCraftController.js"></script>
+
+    <meta charset="utf-8">
+    <title>ACControlSystem</title>
+</head>
+
+<body>
+    <div class="full-size" ng-controller="AirCraftController">
+        <h1>Air Traffic Control System</h1>
+
+        <!--HideStart block hides the start button once it is clicked-->
+        <div ng-hide="hideStart">
+            <br/><br/>
+            <h3>Press the Start Button to boot into the system</h3>
+            <input type="submit" id="start" value="Start" ng-click="save()" />
+        </div>
+
+        <!--HideLogic button shows up after start button is clicked and it contains set of dropdowns to select the Type of ac and Size of AC-->
+        <div class="businessLogic" ng-hide="hideLogic"><br/><br/>
+            <br/><br/> 
+            Type Of the Aircraft: <select ng-model="selectedTypeOfAircraft" ng-change="changeTypeOfAircraft(selectedTypeOfAircraft)" ng-options="type for type in typeOfAircraft"></select>
+            <br/> &nbsp;
+            SizeOfAircraft: <select ng-model="selectedSizeOfAircraft" ng-change="changeSizeOfAircraft(selectedSizeOfAircraft)" ng-options="size for size in sizeOfAircraft">
+            </select>
+            <br/><br/>
+            <!--click event is triggered and values are stored once user adds aircraft-->
+            <input type="submit" id="add" ng-click="addValues()" value="Add Aircraft" />
+            <br/><br/>
+            <!--AC is moved out of airport once this button is clicked-->
+            <input type="submit" id="del" ng-click="dequeueFromTop()" value="Remove Aircraft" />
+            <!--This event is triggered once the user clicks on Show list of managed aircrafts, when this occurs all the other views containing ng-hide="hidelogic" or "hidestart" are hidden-->
+            <input type="submit" id="show" ng-click="showList()" value="View Aircrafts" />
+
+            <!--These two messages pop up once user clicks on add ac or moves an AC-->
+            <br/><br/><br/><br/><p ng-model="addedAircraft">{{addedAircraft}}</p>
+            <span ng-model="shiftedValue"><br/>{{shiftedValue}}<br/></span>
+        </div>
+        
+        <!--This enqueueHide block shows the list of Aircrafts registered in the airport-->
+        <div ng-hide="enqueueHide">
+            <input type="submit" id="back" ng-click="setBackFlag()" value="go back" /><br/><br/>
+               
+                    <!--Iterating over PassengerCargo values stored as like Array of arrays-->
+                    <span ng-model="combinePassengerCargo" class="table" ng-repeat=" enqueueValue in combinePassengerCargo">
+                        Aircraft <span ng-repeat="x in enqueueValue">{{ x }}&nbsp</span><br/>
+                    </span>
+        </div>
+
+    </div>
+
+    </div>
+
+</body>
+
+</html>

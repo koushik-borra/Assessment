@@ -1,0 +1,13 @@
+html, body, .full-size {
+  margin: 0px;
+  padding: 0px;
+  height: 100%;
+  width: 100%;
+  text-align:center;
+  background-color:#4DB6AC; 
+}
+#back{
+	float:left;
+	margin-left: 10px;
+}
+
